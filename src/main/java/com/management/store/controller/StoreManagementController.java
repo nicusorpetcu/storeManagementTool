@@ -1,5 +1,6 @@
 package com.management.store.controller;
 
+import com.management.store.exceptions.NegativeNumericValueException;
 import com.management.store.exceptions.ProductNotFoundException;
 import com.management.store.model.Product;
 import com.management.store.service.StoreManagementService;
@@ -30,12 +31,12 @@ public class StoreManagementController {
     }
 
     @PutMapping("/products/price/{id}")
-    public boolean updatePrice(@RequestBody Double price, @PathVariable Long id) throws ProductNotFoundException {
+    public boolean updatePrice(@RequestBody Double price, @PathVariable Long id) throws ProductNotFoundException, NegativeNumericValueException {
         return storeManagementService.updatePrice(price, id);
     }
 
     @PutMapping("/products/quantity/{id}")
-    public boolean updateQuantity(@RequestBody Integer quantity, @PathVariable Long id) throws ProductNotFoundException {
+    public boolean updateQuantity(@RequestBody Integer quantity, @PathVariable Long id) throws ProductNotFoundException, NegativeNumericValueException {
         return storeManagementService.updateQuantity(quantity, id);
     }
 
