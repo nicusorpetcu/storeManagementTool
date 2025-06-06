@@ -1,6 +1,7 @@
 package com.management.store.service;
 
 import com.management.store.entity.ProductEntity;
+import com.management.store.exceptions.ProductNotFoundException;
 import com.management.store.mapper.ProductEntityMapperImpl;
 import com.management.store.model.Product;
 import com.management.store.repository.ProductRepository;
@@ -36,7 +37,7 @@ public class StoreManagementService {
         return flag.get();
     }
 
-    public boolean updateProduct(Product product, Long id) {
+    public boolean updateProduct(Product product, Long id) throws ProductNotFoundException {
         AtomicBoolean flag = new AtomicBoolean(false);
         Optional<ProductEntity> productEntity = productRepository.findById(id);
         if (productEntity.isPresent()) {
@@ -44,38 +45,38 @@ public class StoreManagementService {
             temp.setId(productEntity.get().getId());
             productRepository.save(temp);
             flag.set(true);
-        };
+        }else throw new ProductNotFoundException();
         return flag.get();
     }
 
-    public boolean updatePrice(double price, Long id) {
+    public boolean updatePrice(double price, Long id) throws ProductNotFoundException {
         AtomicBoolean flag = new AtomicBoolean(false);
         Optional<ProductEntity> productEntity = productRepository.findById(id);
         if (productEntity.isPresent()) {
             productEntity.get().setPrice(price);
             productRepository.save(productEntity.get());
             flag.set(true);
-        };
+        }else throw new ProductNotFoundException();
         return flag.get();
     }
 
-    public boolean updateQuantity(int quantity, Long id) {
+    public boolean updateQuantity(int quantity, Long id) throws ProductNotFoundException {
         AtomicBoolean flag = new AtomicBoolean(false);
         Optional<ProductEntity> productEntity = productRepository.findById(id);
         if (productEntity.isPresent()) {
             productEntity.get().setQuantity(quantity);
             productRepository.save(productEntity.get());
             flag.set(true);
-        };
+        }else throw new ProductNotFoundException();
         return flag.get();
     }
 
-    public Product getProduct(Long id) {
+    public Product getProduct(Long id) throws ProductNotFoundException {
         Optional<ProductEntity> productEntity = productRepository.findById(id);
         Product product = null;
         if (productEntity.isPresent()) {
             product = productEntityMapper.productEntityToProduct(productEntity.get());
-        }
+        }else throw new ProductNotFoundException();
         return product;
     }
 
