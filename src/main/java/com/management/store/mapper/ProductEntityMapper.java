@@ -5,7 +5,7 @@ import com.management.store.model.Product;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface ProductEntityMapper {
+public sealed interface ProductEntityMapper permits ProductEntityMapperImpl{
     ProductEntity productToEntity(Product product);
 
     Product productEntityToProduct(ProductEntity productEntity);

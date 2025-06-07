@@ -5,11 +5,10 @@ import com.management.store.model.Product;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductEntityMapperImpl implements ProductEntityMapper {
+public final class ProductEntityMapperImpl implements ProductEntityMapper {
     @Override
     public ProductEntity productToEntity(Product product) {
         ProductEntity productEntity = new ProductEntity();
-        productEntity.setId(product.getId());
         productEntity.setName(product.getProductName());
         productEntity.setPrice(product.getPrice());
         productEntity.setQuantity(product.getQuantity());
@@ -19,7 +18,6 @@ public class ProductEntityMapperImpl implements ProductEntityMapper {
     @Override
     public Product productEntityToProduct(ProductEntity productEntity) {
         Product product = new Product();
-        product.setId(productEntity.getId());
         product.setProductName(productEntity.getName());
         product.setPrice(productEntity.getPrice());
         product.setQuantity(productEntity.getQuantity());
